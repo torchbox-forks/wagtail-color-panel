@@ -6,8 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Changed
+- Add CI testing for Django 5.2 (@ianmeigh)
+- Add CI testing for Wagtail 7.0 (@ianmeigh)
 ### Fixed
+- Fix content_panel binding to model in widget test (@ianmeigh)
 ### Removed
+- Remove CI testing for Django 5.0 (@ianmeigh)
+- Remove CI testing for Wagtail 5.2 (@ianmeigh)
 
 ## [1.6.0] - 2025-01-26
 ### Added

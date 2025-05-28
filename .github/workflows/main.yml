@@ -39,6 +39,7 @@ jobs:
         pip install -q django==${{ matrix.django-version }}
     - name: Run tests
       run: |
+        pip freeze # see whats installed here
         python runtests.py
 
   lint-black:

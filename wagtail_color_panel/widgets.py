@@ -1,8 +1,5 @@
-import json
-
 from django.forms import widgets
 from django.utils.safestring import mark_safe
-from wagtail import VERSION as WAGTAIL_VERSION
 from wagtail.telepath import register
 from wagtail.widget_adapters import WidgetAdapter
 
@@ -49,65 +46,37 @@ class PolyfillColorInputWidget(widgets.TextInput):
         )
 
 
-if WAGTAIL_VERSION >= (6, 0):  # type: ignore
-    from django.forms import Media
+from django.forms import Media
 
-    class ColorInputWidget(widgets.TextInput):  # type: ignore
-        template_name = "wagtail_color_panel/widgets/color-input-widget.html"
+class ColorInputWidget(widgets.TextInput):  # type: ignore
+    template_name = "wagtail_color_panel/widgets/color-input-widget.html"
 
-        def __init__(self, attrs=None):
-            default_attrs = {
-                "class": "color-input-widget__text-input",
-            }
-            attrs = attrs or {}
-            attrs = {**default_attrs, **attrs}
-            super().__init__(attrs=attrs)
+    def __init__(self, attrs=None):
+        default_attrs = {
+            "class": "color-input-widget__text-input",
+        }
+        attrs = attrs or {}
+        attrs = {**default_attrs, **attrs}
+        super().__init__(attrs=attrs)
 
-        def build_attrs(self, *args, **kwargs):
-            attrs = super().build_attrs(*args, **kwargs)
-            attrs["data-controller"] = "color-input"
-            return attrs
+    def build_attrs(self, *args, **kwargs):
+        attrs = super().build_attrs(*args, **kwargs)
+        attrs["data-controller"] = "color-input"
+        return attrs
 
-        @property
-        def media(self):
-            return Media(
-                css={
-                    "all": [
-                        "wagtail_color_panel/css/color-input-widget.css",
-                    ]
-                },
-                js=[
-                    "wagtail_color_panel/js/color-input-widget.js",
-                    "wagtail_color_panel/js/color-input-controller.js",
-                ],
-            )
-
-else:
-    from wagtail.utils.widgets import WidgetWithScript
-
-    class ColorInputWidget(WidgetWithScript, widgets.TextInput):
-        template_name = "wagtail_color_panel/widgets/color-input-widget.html"
-
-        def __init__(self, attrs=None):
-            default_attrs = {
-                "class": "color-input-widget__text-input",
-            }
-            attrs = attrs or {}
-            attrs = {**default_attrs, **attrs}
-            super().__init__(attrs=attrs)
-
-        def render_js_init(self, id_, name, value):
-            return "new ColorInputWidget({0});".format(json.dumps(id_))
-
-        class Media:
-            css = {
+    @property
+    def media(self):
+        return Media(
+            css={
                 "all": [
                     "wagtail_color_panel/css/color-input-widget.css",
                 ]
-            }
-            js = [
+            },
+            js=[
                 "wagtail_color_panel/js/color-input-widget.js",
-            ]
+                "wagtail_color_panel/js/color-input-controller.js",
+            ],
+        )
 
 
 class ColorInputWidgetAdapter(WidgetAdapter):

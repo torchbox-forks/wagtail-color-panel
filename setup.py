@@ -5,7 +5,7 @@ from pathlib import Path
 from setuptools import find_packages, setup
 
 
-install_requires = ["wagtail>=6.4"]
+install_requires = ["wagtail>=7.0"]
 
 tests_require = [
     "pytest-django>=4.5.2",

@@ -48,6 +48,7 @@ class PolyfillColorInputWidget(widgets.TextInput):
 
 from django.forms import Media
 
+
 class ColorInputWidget(widgets.TextInput):  # type: ignore
     template_name = "wagtail_color_panel/widgets/color-input-widget.html"
 

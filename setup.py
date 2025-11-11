@@ -4,9 +4,14 @@ from pathlib import Path
 
 from setuptools import find_packages, setup
 
+
 install_requires = ["wagtail>=6.4"]
 
-tests_require = ["pytest-django", "wagtail-factories", "pytest"]
+tests_require = [
+    "pytest-django>=4.5.2",
+    "wagtail-factories>=4.2.0",
+    "pytest"
+]
 
 this_directory = Path(__file__).parent
 long_description = (this_directory / "README.md").read_text()
